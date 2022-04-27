@@ -1,5 +1,6 @@
 import random
 from time import sleep
+from multiprocessing import Pool
 
 
 
@@ -12,7 +13,12 @@ def scrape(url):
 
 urls = ["a.com", "b.com", "c.com", "d.com"]
 
-output=[]
-for url in urls:
-    result = scrape(url)
-    output.append(result)
+if __name__=='__main__':
+    pool = Pool(processes=4)
+
+    data=pool.map(scrape, urls)
+
+    pool.close()
+    print()
+    for row in data:
+        print(row)
